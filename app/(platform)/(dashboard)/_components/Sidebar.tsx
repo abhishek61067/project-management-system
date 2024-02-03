@@ -48,11 +48,15 @@ const Sidebar = ({ storageKey }: SidebarProps) => {
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
-        <div className="flex items-center space-x-4">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[150px]" />
-            <Skeleton className="h-4 w-[100px]" />
+        <div className="flex flex-col gap-y-2">
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-10 w-[50%]" />
+            <Skeleton className="h-10 w-10" />
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <NavItem.Skeleton />
+            <NavItem.Skeleton />
+            <NavItem.Skeleton />
           </div>
         </div>
       </>
