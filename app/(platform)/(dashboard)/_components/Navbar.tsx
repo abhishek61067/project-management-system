@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { OrganizationSwitcher, UserButton } from '@clerk/nextjs'
 import { Plus } from 'lucide-react'
 import React from 'react'
+import { MobileSidebar } from './mobile-sidebar'
 
 export const Navbar = () => {
   return (
@@ -11,6 +12,9 @@ export const Navbar = () => {
         'fixed z-50 top-0 h-14 w-full border-b shadow-sm bg-white flex items-center justify-between'
       }
     >
+      <div className="block md:hidden">
+        <MobileSidebar />
+      </div>
       <div className="flex items-center gap-4">
         <Logo />
         <Button variant="primary" size={'sm'} className="hidden md:block">
