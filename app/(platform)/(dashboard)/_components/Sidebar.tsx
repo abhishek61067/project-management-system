@@ -7,7 +7,8 @@ import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-
+import { Accordion } from '@/components/ui/accordion'
+import NavItem, { Organization } from './NavItem'
 interface SidebarProps {
   storageKey?: string
 }
@@ -26,6 +27,7 @@ const Sidebar = ({ storageKey }: SidebarProps) => {
     },
   })
 
+  // this gives an array of keys in expanded object
   const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
     (acc: string[], key: string) => {
       if (expanded[key]) {
@@ -57,21 +59,38 @@ const Sidebar = ({ storageKey }: SidebarProps) => {
     )
   }
   return (
-    <div className="font-medium text-xs flex items-center mb-1">
-      <span className="pl-4">Workspaces</span>
-      <Button
-        asChild
-        variant={'ghost'}
-        type="button"
-        className="ml-auto"
-        size={'icon'}
+    <>
+      <div className="font-medium text-xs flex items-center mb-1">
+        <span className="pl-4">Workspaces</span>
+        <Button
+          asChild
+          variant={'ghost'}
+          type="button"
+          className="ml-auto"
+          size={'icon'}
+        >
+          {/* link to redirect to the select-org */}
+          <Link href="/select-org">
+            <Plus className="w-4 h-4" />
+          </Link>
+        </Button>
+      </div>
+      <Accordion
+        type="multiple"
+        defaultValue={defaultAccordionValue}
+        className="space-y-2"
       >
-        {/* link to redirect to the select-org */}
-        <Link href="/select-org">
-          <Plus className="w-4 h-4" />
-        </Link>
-      </Button>
-    </div>
+        {userMemberships.data.map(({ organization }) => (
+          <NavItem
+            key={organization.id}
+            isActive={activeOrganization?.id === organization.id}
+            isExpanded={expanded[organization.id]}
+            organization={organization as Organization}
+            onExpand={onExpand}
+          />
+        ))}
+      </Accordion>
+    </>
   )
 }
 
