@@ -8,7 +8,6 @@ const OrganizationLayout = ({ children }: { children: React.ReactNode }) => {
           <Sidebar />
         </div>
         {children}
-        {children}
       </div>
     </main>
   )
