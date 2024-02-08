@@ -1,10 +1,18 @@
-'use client'
-import { useAuth } from '@clerk/nextjs'
-import React from 'react'
+import { db } from '@/lib/db'
+import { Board } from './board'
+import { Form } from './form'
 
-const OrganizationPage = () => {
-  const { userId, orgId } = useAuth()
-  return <div>OrganizationPage:{orgId}</div>
+const OrganizationPage = async () => {
+  const boards = await db.board.findMany()
+  return (
+    <div className="flex flex-col space-y-2">
+      <Form />
+      <div className="space-y-2">
+        {boards.map((board) => (
+          <Board key={board.id} title={board.title} id={board.id} />
+        ))}
+      </div>
+    </div>
+  )
 }
-
 export default OrganizationPage
