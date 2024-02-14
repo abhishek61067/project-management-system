@@ -11,7 +11,7 @@ export const BoardList = () => {
       </div>
       {/* list of boards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        <FormPopover>
+        <FormPopover side="right">
           <div
             role="button"
             className="flex flex-col justify-center items-center aspect-video relative h-full w-full bg-muted rounded-sm gap-y-1 hover:opacity-75 transition p-2"
