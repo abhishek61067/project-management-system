@@ -64,6 +64,7 @@ const Sidebar = ({ storageKey }: SidebarProps) => {
   }
   return (
     <>
+      {/*wrapper for  text and plus icon starts */}
       <div className="font-medium text-xs flex items-center mb-1">
         <span className="pl-4">Workspaces</span>
         <Button
@@ -79,6 +80,7 @@ const Sidebar = ({ storageKey }: SidebarProps) => {
           </Link>
         </Button>
       </div>
+      {/*wrapper for  text and plus icon ends */}
       <Accordion
         type="multiple"
         defaultValue={defaultAccordionValue}
