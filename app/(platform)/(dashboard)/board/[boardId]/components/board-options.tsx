@@ -46,7 +46,12 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
             <X className="h-5 w-5" />
           </Button>
         </PopoverClose>
-        <Button className="w-full" variant={'ghost'} onClick={onDelete}>
+        <Button
+          className="w-full"
+          variant={'ghost'}
+          disabled={isLoading}
+          onClick={onDelete}
+        >
           Delete this board
         </Button>
       </PopoverContent>
