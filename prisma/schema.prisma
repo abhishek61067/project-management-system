@@ -7,7 +7,7 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-
+// Board means which you create after clicking the organization
 model Board {
 id String @id @default(uuid())
 orgId String
@@ -24,6 +24,7 @@ createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
 }
 
+// List means which you create inside each board. Eg: todo, completed,etc
 model List{
   id String @id @default(uuid())
   title String
@@ -40,6 +41,7 @@ model List{
   @@index([boardId])
 }
 
+// Card means which you create inside each card
 model Card{
   id String @id @default(uuid())
   title String
@@ -51,3 +53,5 @@ model Card{
 
   @@index([listId])
 }
+
+
