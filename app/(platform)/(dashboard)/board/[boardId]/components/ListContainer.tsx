@@ -8,6 +8,7 @@ import { DragDropContext, Droppable } from '@hello-pangea/dnd'
 import { useAction } from '@/hooks/use-action'
 import { toast } from 'sonner'
 import { updateListOrder } from '@/actions/update-list-order'
+import { updateCardOrder } from '@/actions/update-card-order'
 
 interface ListContainerProps {
   data: ListWithCards[]
@@ -30,7 +31,15 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
       toast.success('list reordered')
     },
     onError: (e) => {
-      toast.success(e)
+      toast.error(e)
+    },
+  })
+  const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
+    onSuccess: () => {
+      toast.success('card reordered')
+    },
+    onError: (e) => {
+      toast.error(e)
     },
   })
 
@@ -66,33 +75,41 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
 
     // user moves a card
     if (type === 'card') {
+      console.log('moving card')
       let newOrderedData = [...orderedData]
 
       //  source and destination list
       const sourceList = newOrderedData.find(
         (list) => list.id === source.droppableId
       )
+      console.log('sourcelist: ', sourceList)
 
       const destinationList = newOrderedData.find(
         (list) => list.id === destination.droppableId
       )
 
+      console.log('dest list: ', destinationList)
+
       if (!sourceList || !destinationList) {
+        console.log('no source or destination list')
         return
       }
 
       // check if cards exist on the sourcelist
       if (!sourceList.cards) {
+        console.log('no destination cards')
         sourceList.cards = []
       }
 
       // check if cards exist on the destinationList
       if (!destinationList.cards) {
+        console.log('no destination card')
         destinationList.cards = []
       }
 
       // moving card in same list
       if (source.droppableId === destination.droppableId) {
+        console.log('moving card in same list')
         const reorderedCards = reorder(
           sourceList.cards,
           source.index,
@@ -106,9 +123,15 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
         sourceList.cards = reorderedCards
         setOrderedData(newOrderedData)
         // server action
+        console.log('performing server action for card order')
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: reorderedCards,
+        })
       }
       // user moves card to other list
       else {
+        console.log('moving card in different list')
         const [movedCard] = sourceList.cards.splice(source.index, 1)
 
         // assign new listId to moved card
@@ -128,6 +151,10 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
 
         setOrderedData(newOrderedData)
         // to do: trigger a server action
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: destinationList.cards,
+        })
       }
     }
   }

@@ -18,6 +18,7 @@ export const handler = async (data: InputType): Promise<ReturnType> => {
   const { items, boardId } = data
   let lists
   try {
+    console.log('fine from card order!!!!!!!')
     const transaction = items.map((list) =>
       db.list.update({
         where: {
@@ -33,6 +34,7 @@ export const handler = async (data: InputType): Promise<ReturnType> => {
     )
     lists = await db.$transaction(transaction)
   } catch (e) {
+    console.log('not fine from card order!!!!!!!');
     return {
       error: 'failed to reorder',
     }
