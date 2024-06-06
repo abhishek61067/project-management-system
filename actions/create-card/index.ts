@@ -6,6 +6,8 @@ import { db } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
 import { createSafeAction } from '@/lib/create-safe-action'
 import { CreateCard } from './schema'
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 export const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth()
@@ -40,7 +42,7 @@ export const handler = async (data: InputType): Promise<ReturnType> => {
       select: { order: true },
     })
 
-    const newOrder = lastCard ? lastCard.order + 1 : 1
+    const newOrder = lastCard ? lastCard?.order + 1 : 1
 
     card = await db.card.create({
       data: {
@@ -48,6 +50,13 @@ export const handler = async (data: InputType): Promise<ReturnType> => {
         listId,
         order: newOrder,
       },
+    })
+
+    await createAuditLog({
+      entityId: card.id,
+      entityTitle: card.title,
+      entityType: ENTITY_TYPE.CARD,
+      action: ACTION.CREATE,
     })
   } catch (e) {
     return {

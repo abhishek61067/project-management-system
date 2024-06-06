@@ -75,6 +75,7 @@ orgId String
 action ACTION
 entityId String
 entityType ENTITY_TYPE
+entityTitle String
 userId String
 userImage String @db.Text
 userName String @db.Text
