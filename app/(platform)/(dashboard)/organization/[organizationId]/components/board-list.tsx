@@ -49,12 +49,12 @@ export const BoardList = async () => {
             className="flex flex-col justify-center items-center aspect-video relative h-full w-full bg-muted rounded-sm gap-y-1 hover:opacity-75 transition p-2"
           >
             <p className="text-sm">Create new board</p>
-            <span className="text-xs">5 remaining</span>
+            {/* <span className="text-xs"></span>
             <Hint
               description={`Free workspace can have a max of 5 free board. Upgrade to get unlimited boards`}
             >
               <HelpCircle className="h-4 w-4" />
-            </Hint>
+            </Hint> */}
           </div>
         </FormPopover>
       </div>

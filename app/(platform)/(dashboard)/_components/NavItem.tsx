@@ -52,11 +52,11 @@ const NavItem = ({
       href: `/organization/${organization.id}/settings`,
       icon: <Settings className="h-4 w-4" />,
     },
-    {
-      label: 'Billing',
-      href: `/organization/${organization.id}/billing`,
-      icon: <CreditCard className="h-4 w-4" />,
-    },
+    // {
+    //   label: 'Billing',
+    //   href: `/organization/${organization.id}/billing`,
+    //   icon: <CreditCard className="h-4 w-4" />,
+    // },
   ]
   const onClick = (href: string) => {
     router.push(href)

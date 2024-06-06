@@ -1,3 +1,5 @@
+'use server'
+
 import { ActivityItem } from '@/components/activity-item'
 import { Skeleton } from '@/components/ui/skeleton'
 import { db } from '@/lib/db'
@@ -13,6 +15,9 @@ export const ActivityList = async () => {
   const auditLogs = await db.auditLog.findMany({
     where: {
       orgId,
+    },
+    orderBy: {
+      createdAt: 'desc',
     },
   })
 
