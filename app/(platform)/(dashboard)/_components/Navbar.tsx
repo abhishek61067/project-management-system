@@ -10,7 +10,7 @@ export const Navbar = () => {
   return (
     <nav
       className={
-        'fixed z-50 top-0 h-14 w-full border-b shadow-sm bg-white flex items-center justify-between'
+        'px-4 fixed z-50 top-0 h-14 w-full border-b shadow-sm bg-white flex items-center justify-between'
       }
     >
       <div className="block md:hidden">
